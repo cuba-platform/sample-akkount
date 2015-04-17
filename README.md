@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 akkount
 =======
 
@@ -40,3 +41,7 @@ To run Tomcat use ```gradlew start``` Gradle command or ```startup.*``` scripts 
 
 Main UI is available on ```http://localhost:8080/app```, responsive UI on ```http://localhost:8080/app-portal```. 
 Username: ```admin```, password: ```admin```.
+=======
+# platform-sample-akkount
+A simple personal finance application
+>>>>>>> 1d9709d55f4b48a47b1bed1b55474069ab2b9c04
