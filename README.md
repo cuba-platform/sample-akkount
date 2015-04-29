@@ -3,7 +3,7 @@ akkount
 
 A simple personal finance application built on [CUBA Platform](https://www.cuba-platform.com).
 
-Based on CUBA.platform 5.4.2
+Based on CUBA Platform 5.4.2
 
 Features
 --------
