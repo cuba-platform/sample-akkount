@@ -1,7 +1,9 @@
 akkount
 =======
 
-A simple personal finance application built on [CUBA Platform](https://www.cuba-platform.com).
+This is a real-world application for managing personal finances. It can be practically useful if you live in a country where automatic services like mint.com don't work, and you don't mind entering all your money transactions manually.
+
+This is also a good example of some non-trivial extensions of a CUBA application, such as customization of a visual component with client-side JavaScript code, and creating an additional lightweight web UI for mobile devices.
 
 Based on CUBA Platform 5.4.2
 
@@ -26,19 +28,4 @@ Some details:
 Usage
 -----
 
-Install JDK 7 or above and set JAVA_HOME environment variable to the JDK root dir.
-Open command line in the project directory and run the following command to build the application:
-```
-gradlew setupTomcat deploy
-```
-During the build process you will be prompted to accept CUBA platform license agreement. CUBA is free while you have five or less simultaneous user sessions. This should be more than enough for home usage. 
-
-Now start HSQL server and create database in ```data``` directory:
-```
-gradlew startDb
-gradlew createDb
-```
-To run Tomcat use ```gradlew start``` Gradle command or ```startup.*``` scripts in ```build/tomcat/bin```.
-
-Main UI is available on ```http://localhost:8080/app```, responsive UI on ```http://localhost:8080/app-portal```. 
-Username: ```admin```, password: ```admin```.
+Open the project in Studio and execute **Run > Create database**, then **Run > Start application server**. Login to the application on `http://localhost:8080/app` with `admin` user name and `admin` password. You can generate test data in **Administration > JMX Console > app-core.akkount -> app-core.akkount:type=SampleDataGenerator** bean. Enter the number of days (e.g. 100) back from the current date, for which to create sample transactions, into the **generateSampleData()** method parameter and click **Invoke**. After the method execution is finished, logout and login again. You will see the balance for sample accounts in the left panel.
