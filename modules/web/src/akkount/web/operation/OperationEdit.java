@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2013 knstvk.akkount
- */
-
 package akkount.web.operation;
 
 import akkount.entity.Account;
@@ -10,7 +6,6 @@ import akkount.entity.OperationType;
 import akkount.service.UserDataKeys;
 import akkount.service.UserDataService;
 import akkount.web.App;
-import akkount.web.LeftPanel;
 import com.haulmont.cuba.core.entity.Entity;
 import com.haulmont.cuba.core.global.CommitContext;
 import com.haulmont.cuba.core.global.TimeSource;
@@ -28,10 +23,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author krivopustov
- * @version $Id$
- */
 public class OperationEdit extends AbstractEditor<Operation> {
 
     public static final String LAST_OPERATION_DATE_ATTR = "lastOperationDate";
@@ -65,9 +56,7 @@ public class OperationEdit extends AbstractEditor<Operation> {
         getDsContext().addListener(new DsContext.CommitListenerAdapter() {
             @Override
             public void afterCommit(CommitContext context, Set<Entity> result) {
-                LeftPanel leftPanel = App.getLeftPanel();
-                if (leftPanel != null)
-                    leftPanel.refreshBalance();
+                ((App) App.getInstance()).getMainWindow().refreshBalance();
             }
         });
     }

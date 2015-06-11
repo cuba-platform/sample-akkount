@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2013 knstvk.akkount
- */
-
 package akkount.service;
 
 import akkount.entity.UserData;
@@ -135,7 +131,8 @@ public class UserDataWorker {
         Transaction tx = persistence.createTransaction();
         try {
             EntityManager em = persistence.getEntityManager();
-            entity = em.find(entityClass, entityId);
+            //noinspection unchecked
+            entity = (T) em.find((Class<Entity<UUID>>) entityClass, entityId);
             tx.commit();
         } finally {
             tx.end();
@@ -148,7 +145,8 @@ public class UserDataWorker {
         Transaction tx = persistence.createTransaction();
         try {
             EntityManager em = persistence.getEntityManager();
-            Query query = em.createQuery("select d.value from akk$UserData d where d.user.id = ?1 and d.key = ?2");
+            TypedQuery<String> query = em.createQuery(
+                    "select d.value from akk$UserData d where d.user.id = ?1 and d.key = ?2", String.class);
             query.setParameter(1, userSessionSource.currentOrSubstitutedUserId());
             query.setParameter(2, key);
             list = query.getResultList();
