@@ -5,7 +5,7 @@ This is a real-world application for managing personal finances. It can be pract
 
 This is also a good example of some non-trivial extensions of a CUBA application, such as customization of a visual component with client-side JavaScript code, and creating an additional lightweight web UI for mobile devices.
 
-Based on CUBA Platform 5.4.2
+Based on CUBA Platform 5.5.0
 
 Features
 --------
