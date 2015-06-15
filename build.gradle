@@ -5,7 +5,7 @@ allprojects {
     ext.isSnapshot = true
     ext.tomcatDir = "$rootDir/build/tomcat"
     ext.copyright = "Copyright (c) 2015 akkount" // Copyright Notice for IDEA project
-    ext.vcs = 'Git' // VCS for IDEA project
+    // ext.vcs = 'Git' // VCS for IDEA project
 }
 
 buildscript {
