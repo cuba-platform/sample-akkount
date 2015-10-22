@@ -4,7 +4,7 @@ akkount
 This is a real-world application for managing personal finances. It can be practically useful if you live in a country where automatic services like mint.com do not work, and you do not mind entering all your money transactions manually.
 This is also a good example of some non-trivial extensions of a CUBA application, such as customization of a visual component with client-side JavaScript code, and creating an additional lightweight web UI for mobile devices.
 
-Based on CUBA Platform 5.6.4
+Based on CUBA Platform 6.0.2
 
 
 Features
@@ -29,4 +29,3 @@ Usage
 -----
 
 Open the project in Studio and execute **Run > Create database**, then **Run > Start application server**. The application will start at `http://localhost:8080/app`. Use `admin` as both login and password to access the application. You can generate test data in **Administration > JMX Console > app-core.akkount -> app-core.akkount:type=SampleDataGenerator** bean. Enter the number of days (e.g. 100) back from the current date into **generateSampleData()** method parameter and click **Invoke**, in order to create sample transactions. After the method execution is finished, logout and login again. You will then be able to see the balance for sample accounts in the left panel.
-
