@@ -1,4 +1,4 @@
-akkount
+Akkount
 =======
 
 This is a real-world application for managing personal finances. It can be practically useful if you live in a country where automatic services like mint.com do not work, and you do not mind entering all your money transactions manually.
