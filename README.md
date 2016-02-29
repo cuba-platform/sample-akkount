@@ -4,7 +4,7 @@ Akkount
 This is a real-world application for managing personal finances. It can be practically useful if you live in a country where automatic services like mint.com do not work, and you do not mind entering all your money transactions manually.
 This is also a good example of some non-trivial extensions of a CUBA application, such as customization of a visual component with client-side JavaScript code, and creating an additional lightweight web UI for mobile devices.
 
-Based on CUBA Platform 6.0.8
+Based on [CUBA Platform](https://www.cuba-platform.com/) 6.0.8
 
 
 Features
