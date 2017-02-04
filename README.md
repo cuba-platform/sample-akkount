@@ -1,37 +1,42 @@
-Akkount
+akkount
 =======
 
-This is a simple real-world application for managing personal finances. It contains some non-trivial code examples, such as customization of a visual component with client-side JavaScript code and an additional lightweight web UI for mobile devices.
-
-Based on CUBA Platform 6.3.1
+A simple personal finance application built on [CUBA Platform](https://www.cuba-platform.com).
 
 Features
 --------
 
-In short, the application solves two problems:
-
- 1.	It shows the current balance by all accounts: cash, credit cards, deposits, debts, etc.
- 2.	It can generate a report by expense and income categories, showing where the money came from and how it was spent in a particular period of time.
+In short the application solves two problems:
+ 1. It shows the current balance by all accounts: cash, credit cards, deposits, debts, etc.
+ 2. It can generate a report by expense and income categories that shows where the money came from and what they were spent on in some period of time.
 
 Some details:
-
-*	There are _accounts_ that represent different kinds of money.
-*	There are _operations_: income to account, expense from account and transfer between accounts.
-*	A _category_ can be set for expense or income operations.
-*	The current balance is constantly displayed and is recalculated after each operation.
-*	Categories report shows the summary by two arbitrary periods of time to allow quick visual comparison. Any category can be excluded from the report. You can "drill down" into any row to see the operations that comprise the row.
-*	The system consists of three web applications deployed onto one Tomcat instance:
-   1.	Middleware
-   2.	Full-functional CUBA UI
-   3.	Responsive UI built on Backbone.js + Bootstrap, which is designed to simplify entering operations on mobile devices.
+* There are _accounts_ that represent different kinds of money.
+* There are _operations_: income to account, expense from account and transfer between accounts.
+* A _category_ can be set for expense or income operations.
+* The current balance is constantly displayed and is recalculated after each operation.
+* Categories report shows the summary by two arbitrary periods of time to allow quick visual comparison. Any category can be excluded from the report. You can "drill down" into any row to see operations that comprise the row.
+* The system consists of three web applications deployed onto one Tomcat instance:
+   1. Middleware
+   2. Full-functional CUBA Generic UI
+   3. Polymer UI for mobile devices. 
 
 Usage
 -----
 
-- Open the project in Studio and execute **Run > Create database**, then **Run > Start application server**. 
+Install JDK 8 or above and set JAVA_HOME environment variable to the JDK root dir.
+Open command line in the project directory and run the following command to build the application:
+```
+gradlew setupTomcat deploy
+```
+During the build process you will be prompted to accept CUBA platform license agreement. CUBA is free while you have five or less simultaneous user sessions. This should be more than enough for home usage. 
 
-- The application will start at `http://localhost:8080/app`. Use `admin` as both login and password to access the application. 
+Now start HSQL server and create database in `data` directory:
+```
+gradlew startDb
+gradlew createDb
+```
+To run Tomcat use `gradlew start` Gradle command or `startup.*` scripts in `build/tomcat/bin`.
 
-- You can generate test data in **Administration > JMX Console > app-core.akkount:type=SampleDataGenerator** bean. In order to create sample transactions, enter a number of days (e.g. 100) back from the current date into `generateSampleData()` method parameter and click **Invoke**. 
-
-- After the method execution is finished, logout and login again. You will see the balance for sample accounts on the left panel.
+Main UI is available on `http://localhost:8080/app`, mobile-friendly UI on `http://localhost:8080/app-front`. 
+Username: `admin`, password: `admin`.

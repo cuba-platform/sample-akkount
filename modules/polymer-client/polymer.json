@@ -1,0 +1,15 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/akk-shell.html",
+  "sources": [
+    "src/**/*",
+    "images/**/*",
+    "bower.json"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "service-worker.js",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js",
+    "bower_components/fetch/fetch.js"
+  ]
+}
