@@ -10,14 +10,10 @@ buildscript {
                 password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
             }
         }
-
     }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
-
         classpath "com.haulmont.cuba:cuba-global:$cubaVersion"
-
-
     }
 }
 
