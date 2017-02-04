@@ -1,4 +1,4 @@
-akkount
+Akkount
 =======
 
 This is a simple real-world application for managing personal finances. It contains some non-trivial code examples, such as customization of a visual component with client-side JavaScript code and an additional lightweight web UI for mobile devices.
@@ -35,19 +35,10 @@ Some details:
 Usage
 -----
 
-Install JDK 8 or above and set JAVA_HOME environment variable to the JDK root dir.
-Open command line in the project directory and run the following command to build the application:
-```
-gradlew setupTomcat deploy
-```
-During the build process you will be prompted to accept CUBA platform license agreement. CUBA is free while you have five or less simultaneous user sessions. This should be more than enough for home usage. 
+- Open the project in Studio and execute **Run > Create database**, then **Run > Start application server**. 
 
-Now start HSQL server and create database in `data` directory:
-```
-gradlew startDb
-gradlew createDb
-```
-To run Tomcat use `gradlew start` Gradle command or `startup.*` scripts in `build/tomcat/bin`.
+- The application will start at `http://localhost:8080/app`. Use `admin` as both login and password to access the application. 
 
-Main UI is available on `http://localhost:8080/app`, mobile-friendly UI on `http://localhost:8080/app-front`. 
-Username: `admin`, password: `admin`.
+- You can generate test data in **Administration > JMX Console > app-core.akkount:type=SampleDataGenerator** bean. In order to create sample transactions, enter a number of days (e.g. 100) back from the current date into `generateSampleData()` method parameter and click **Invoke**. 
+
+- After the method execution is finished, logout and login again. You will see the balance for sample accounts on the left panel.
