@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.6.1'
+    ext.cubaVersion = '6.7.3'
     repositories {
         mavenLocal()
         maven {
@@ -240,6 +240,8 @@ configure(polymerClientModule) {
     apply(plugin: 'cuba')
     apply(plugin: 'idea')
 
+    def frontAppDir = 'app-front'
+
     task installBowerPackages(type: NodeTask, dependsOn: npmInstall) {
         script = file("node_modules/bower/bin/bower")
         args = ['install','-F']
@@ -248,20 +250,27 @@ configure(polymerClientModule) {
     }
 
     task assemble(type: NodeTask, dependsOn: installBowerPackages) {
-        script = file("node_modules/gulp/bin/gulp.js")
+        script = file("node_modules/polymer-cli/bin/polymer")
         args = ['build']
         inputs.dir "./"
         outputs.dir "build"
     }
 
+    task deployUnbundled(type: Copy) {
+        from file('./')
+        include 'bower_components/**'
+        include 'src/**'
+        into "$cuba.tomcat.dir/webapps/$frontAppDir"
+    }
+
+    task deploy(type: Copy, dependsOn: [assemble, deployUnbundled]) {
+        from file('build/es6-unbundled')
+        into "$cuba.tomcat.dir/webapps/$frontAppDir"
+    }
+
     task servePolymer(type: NodeTask, dependsOn: assemble) {
         script = file("node_modules/gulp/bin/gulp.js")
         args = ['serve']
-    }
-
-    task deploy(type: Copy, dependsOn: assemble) {
-        from file('build/bundled')
-        into "$cuba.tomcat.dir/webapps/app-front"
     }
 }
 
