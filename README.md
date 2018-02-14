@@ -3,7 +3,7 @@ Akkount
 
 This is a simple real-world application for managing personal finances. It contains some non-trivial code examples, such as customization of a visual component with client-side JavaScript code and an additional lightweight web UI for mobile devices.
 
-Based on CUBA Platform 6.7.3
+Based on CUBA Platform 6.8.1
 
 Features
 --------
