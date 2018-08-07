@@ -42,3 +42,6 @@ Usage
 - You can generate test data in **Administration > JMX Console > app-core.akkount:type=SampleDataGenerator** bean. In order to create sample transactions, enter a number of days (e.g. 100) back from the current date into `generateSampleData()` method parameter and click **Invoke**. 
 
 - After the method execution is finished, logout and login again. You will see the balance for sample accounts on the left panel.
+
+## Issues
+Please use https://www.cuba-platform.com/discuss for discussion, support, and reporting problems coressponding to this sample.
