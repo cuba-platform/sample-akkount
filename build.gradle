@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.8.1'
+    ext.cubaVersion = '6.10.2'
     repositories {
         mavenLocal()
         maven {
@@ -16,14 +16,16 @@ buildscript {
     }
 }
 
-def globalModule = project(':app-global')
-def coreModule = project(':app-core')
-def guiModule = project(':app-gui')
-def webModule = project(':app-web')
-def webThemesModule= project(':app-web-themes')
-def polymerClientModule = project(':app-polymer-client')
+def modulePrefix = 'app'
 
-def servletApi = 'org.apache.tomcat:tomcat-servlet-api:8.0.26'
+def globalModule = project(":${modulePrefix}-global" )
+def coreModule = project(":${modulePrefix}-core" )
+def guiModule = project(":${modulePrefix}-gui" )
+def webModule = project(":${modulePrefix}-web" )
+def webThemesModule= project(":${modulePrefix}-web-themes" )
+def polymerClientModule = project(":${modulePrefix}-polymer-client" )
+
+def servletApi = 'javax.servlet:javax.servlet-api:3.1.0'
 
 
 apply(plugin: 'idea')
@@ -72,7 +74,9 @@ configure([globalModule, coreModule, guiModule, webModule]) {
 }
 
 configure(globalModule) {
-    task enhance(type: CubaEnhancing)
+    entitiesEnhancing {
+        main { enabled = true }
+    }
 
 
 }
@@ -94,7 +98,7 @@ configure(coreModule) {
 
     task cleanConf(description: 'Cleans up conf directory')  {
         doLast {
-            def dir = new File(cuba.tomcat.dir, '/conf/app-core')
+            def dir = new File(cuba.tomcat.dir, '/conf/${modulePrefix}-core')
             if (dir.isDirectory()) {
                 ant.delete(includeemptydirs: true) {
                     fileset(dir: dir, includes: '**/*', excludes: 'local.app.properties')
@@ -104,8 +108,8 @@ configure(coreModule) {
     }
 
     task deploy(dependsOn: [assemble, cleanConf], type: CubaDeployment) {
-        appName = 'app-core'
-        appJars('app-global', 'app-core')
+        appName = "${modulePrefix}-core"
+        appJars(modulePrefix + '-global', modulePrefix + '-core')
     }
 
     task startDb(description: 'Starts HSQLDB', type: CubaHsqlStart) {
@@ -151,11 +155,11 @@ configure(guiModule) {
     task deployConf(type: Copy) {
         from file('src')
         include "akkount/**"
-        into "$cuba.tomcat.dir/conf/app"
+        into "$cuba.tomcat.dir/conf/${modulePrefix}"
     }
 
     task clearMessagesCache(type: CubaClearMessagesCache) {
-        appName = 'app'
+        appName = "${modulePrefix}"
     }
     deployConf.dependsOn clearMessagesCache
 }
@@ -184,17 +188,17 @@ configure(webModule) {
     task deployConf(type: Copy) {
         from file('src')
         include "akkount/**"
-        into "$cuba.tomcat.dir/conf/app"
+        into "$cuba.tomcat.dir/conf/${modulePrefix}"
     }
 
     task clearMessagesCache(type: CubaClearMessagesCache) {
-        appName = 'app'
+        appName = "${modulePrefix}"
     }
     deployConf.dependsOn clearMessagesCache
 
     task cleanConf(description: 'Cleans up conf directory')  {
         doLast {
-            def dir = new File(cuba.tomcat.dir, '/conf/app')
+            def dir = new File(cuba.tomcat.dir, "/conf/${modulePrefix}")
             if (dir.isDirectory()) {
                 ant.delete(includeemptydirs: true) {
                     fileset(dir: dir, includes: '**/*', excludes: 'local.app.properties')
@@ -204,8 +208,8 @@ configure(webModule) {
     }
 
     task deploy(dependsOn: [assemble, cleanConf], type: CubaDeployment) {
-        appName = 'app'
-        appJars('app-global', 'app-gui', 'app-web')
+        appName = "${modulePrefix}"
+        appJars(modulePrefix + '-global', modulePrefix + '-gui', modulePrefix + '-web')
     }
     task buildScssThemes(type: CubaWebScssThemeCreation)
     task deployThemes(type: CubaDeployThemeTask, dependsOn: buildScssThemes)
@@ -240,7 +244,7 @@ configure(polymerClientModule) {
     apply(plugin: 'cuba')
     apply(plugin: 'idea')
 
-    def frontAppDir = 'app-front'
+    def frontAppDir = "${modulePrefix}-front"
 
     task installBowerPackages(type: NodeTask, dependsOn: npmInstall) {
         script = file("node_modules/bower/bin/bower")
@@ -274,14 +278,14 @@ configure(polymerClientModule) {
     }
 }
 
-task undeploy(type: Delete, dependsOn: ':app-web:cleanConf') {
+task undeploy(type: Delete, dependsOn: ":${modulePrefix}-web:cleanConf" ) {
     delete("$cuba.tomcat.dir/shared")
-    delete("$cuba.tomcat.dir/webapps/app-core")
-    delete("$cuba.tomcat.dir/webapps/app")
-    delete("$cuba.tomcat.dir/webapps/app-front")
+    delete("$cuba.tomcat.dir/webapps/${modulePrefix}-core" )
+    delete("$cuba.tomcat.dir/webapps/${modulePrefix}" )
+    delete("$cuba.tomcat.dir/webapps/${modulePrefix}-front" )
 }
 
-task restart(dependsOn: ['stop', ':app-core:deploy', ':app-web:deploy'], description: 'Redeploys applications and restarts local Tomcat')  {
+task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy" , ":${modulePrefix}-web:deploy" ], description: 'Redeploys applications and restarts local Tomcat')  {
     doLast {
         ant.waitfor(maxwait: 6, maxwaitunit: 'second', checkevery: 2, checkeveryunit: 'second') {
             not {
