@@ -1,3 +1,5 @@
+**ATTENTION! This sample is built for outdated platform version. See [sample-akkount-cuba7](https://github.com/cuba-platform/sample-akkount-cuba7) for the latest version.**
+
 Akkount
 =======
 
